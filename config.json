@@ -1,0 +1,22 @@
+{
+    "API_URL": "https://opensky-network.org/api/states/all?lamin=54.963435&lomin=8.275856&lamax=57.817087&lomax=10.870537",
+    "fields": [
+        {"name": "icao24", "type": "string"},
+        {"name": "callsign", "type": "string"},
+        {"name": "origin_country", "type": "string"},
+        {"name": "time_position", "type": "number"},
+        {"name": "last_contact", "type": "number"},
+        {"name": "longitude", "type": "number"},
+        {"name": "latitude", "type": "number"},
+        {"name": "baro_altitude", "type": "number"},
+        {"name": "on_ground", "type": "boolean"},
+        {"name": "velocity", "type": "number"},
+        {"name": "true_track", "type": "number"},
+        {"name": "vertical_rate", "type": "number"},
+        {"name": "sensors", "type": "arrayint"},
+        {"name": "geo_altitude", "type": "number"},
+        {"name": "squawk", "type": "string"},
+        {"name": "spi", "type": "boolean"},
+        {"name": "position_source", "type": "number"}
+    ]
+}

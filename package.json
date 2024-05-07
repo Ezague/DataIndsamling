@@ -1,0 +1,24 @@
+{
+  "name": "dataindsamling",
+  "version": "1.0.0",
+  "description": "Data indsamling via API til Big Data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/github.com/ezague.git"
+  },
+  "author": "Sander Petersen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/github.com/ezague/issues"
+  },
+  "homepage": "https://github.com/github.com/ezague#readme",
+  "dependencies": {
+    "pg": "^8.11.5",
+    "request": "^2.88.2",
+    "sequelize": "^6.37.3"
+  }
+}
