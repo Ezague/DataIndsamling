@@ -1,27 +1,34 @@
-const pg = require('pg');
-const config = require('./database.json');
-const { Client } = pg;
+const {Sequelize, DataTypes} = require('sequelize');
+const database = require('./database.json');
+const {databaseExists} = require('../functions/databaseLogic')
 
-const client = new Client({
-    user: config.user,
-    host: config.host,
-    password: config.password,
-    database: config.database,
-    port: config.port
-})
+async function createConnection() {
 
-function handleConnection() {
-    client.connect();
-    client.on('error', (err) => {
-        console.error('Unexpected error on idle client', err);
-        process.exit(-1);
+    const sequelize = new Sequelize(database.database, database.user, database.password, {
+        host: database.host,
+        port: database.port,
+        dialect: 'postgres',
+        logging: false
     });
 
-    client.on('end', () => {
-        console.log('Client has disconnected');
-    });
+    await databaseExists(sequelize, database.database)
 }
 
-handleConnection();
+createConnection();
 
-module.exports = client;
+const sequelize = new Sequelize(`postgres://${database.user}:${database.password}@${database.host}:${database.port}/${database.database}`, {
+    logging: false
+});
+
+async function authenticate() {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+}
+
+authenticate();
+
+module.exports = sequelize;
