@@ -2,19 +2,6 @@ const request = require('request');
 const { DataTypes } = require('sequelize');
 const config = require('../config.json');
 
-async function fetchFromApi() {
-    return new Promise((resolve, reject) => {
-        request(config.API_URL, (error, response, body) => {
-            if (!error && response.statusCode == 200) {
-                const data = JSON.parse(body);
-                resolve(data);
-            } else {
-                reject(new Error(`Error fetching data: ${error}`));
-            }
-        });
-    });
-}
-
 async function convertData () {
     const fields = {};
     config.fields.forEach(field => {
@@ -39,8 +26,24 @@ async function convertData () {
     return { fields };
 }
 
+async function fetchFromApi() {
+    return new Promise((resolve, reject) => {
+        request(config.API_URL, (error, response, body) => {
+            if (!error && response.statusCode == 200) {
+                const data = JSON.parse(body);
+                resolve(data);
+            } else {
+                reject(new Error(`Error fetching data: ${error}`));
+            }
+        });
+    });
+}
+
 async function insertData (sequelize, data, fields) {
+    
     const Aircraft = sequelize.define('aircraft', fields);
+    await Aircraft.sync();
+
     const aircraftWithKeysAndTypes = data.states.map(aircraft => {
         const aircraftObject = {};
         config.fields.forEach((field, index) => {

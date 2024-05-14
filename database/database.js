@@ -1,10 +1,12 @@
 const {Sequelize, DataTypes} = require('sequelize');
 const database = require('./database.json');
-const {databaseExists} = require('../functions/databaseLogic')
+const {databaseExists} = require('../functions/databaseCreation')
 
 async function createConnection() {
 
-    const sequelize = new Sequelize(database.database, database.user, database.password, {
+    const sequelize = new Sequelize({
+        username: database.user,
+        password: database.password,
         host: database.host,
         port: database.port,
         dialect: 'postgres',
