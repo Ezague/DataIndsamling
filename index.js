@@ -11,6 +11,12 @@ async function processData() {
 
         setInterval(async () => {
             const data = await fetchFromApi()
+                .then(data => {
+                    return data;
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
             myEmitter.emit('data', data);
         } , 5000);
 
